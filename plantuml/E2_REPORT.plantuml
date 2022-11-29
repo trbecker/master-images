@@ -1,0 +1,18 @@
+@startuml E2 REPORT
+== Subscription ==
+"Near-RT RIC" -> "E2 Node": RIC SUBSCRIPTION PROCEDURE(RIC Event Trigger, Action=REPORT)
+
+== Execution ==
+... Repeated for each Trigger Event ...
+note over "E2 Node"
+Trigger event
+end note
+
+"E2 Node" -> "Near-RT RIC": RIC INDICATION(REPORT)
+
+note over "E2 Node"
+function processing continues
+end note
+
+@enduml
+

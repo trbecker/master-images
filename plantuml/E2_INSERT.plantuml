@@ -1,0 +1,89 @@
+@startuml E2 INSERT
+== Subscription ==
+"Near-RT RIC" -> "E2 Node": RIC SUBSCRIPTION PROCEDURE(RIC Event Trigger, Action=INSERT)
+
+== Execution ==
+... Repeated for each Trigger Event ...
+
+note over "E2 Node"
+Trigger Event
+end note
+
+note over "E2 Node"
+Suspend the procedure
+end note
+
+note over "E2 Node"
+Start time to wait timer
+end note
+
+"E2 Node" -> "Near-RT RIC": RIC INDICATION(INSERT)
+
+note over "Near-RT RIC"
+action performed
+end note
+
+"Near-RT RIC" -> "E2 Node": RIC CONTROL REQUEST
+
+note over "Near-RT RIC"
+start timer
+end note
+
+note over "E2 Node"
+check process id and timer
+end note
+
+alt [. request with valid process id received before the timer expires]
+  note over "E2 Node"
+  check request validity
+  end note
+
+  alt [. request accepted]
+    note over "E2 Node"
+    cancel timer
+    end note
+
+    note over "E2 Node"
+    procedure resumes
+    end note
+
+    alt [. request executed successfully and ack is requested]
+      "E2 Node" --> "Near-RT RIC": RIC CONTROL ACKNOWLEDGE
+    else [. request fails and nack is requested]
+      "E2 Node" --> "Near-RT RIC": RIC CONTROL FAILURE(Cause = Failure to execute)
+    end
+
+  else [. request rejected]
+    "E2 Node" --> "Near-RT RIC": RIC CONTROL FAILURE(Cause provides reason)
+  end
+
+else [. process id valid, timer expires, action=Continue]
+  note over "E2 Node"
+  Timer expires
+  end note
+
+  note over "E2 Node"
+  procedure **resumes**
+  end note
+
+  "Near-RT RIC" --> "E2 Node": RIC CONTROL REQUEST
+  "E2 Node" --> "Near-RT RIC": RIC CONTROL FAILURE(Cause=Control timer expired)
+
+else [. process id valid, timer expires, action=Halt]
+  note over "E2 Node"
+  Timer expires
+  end note
+
+  note over "E2 Node"
+  procedure **halts**
+  end note
+
+  "Near-RT RIC" --> "E2 Node": RIC CONTROL REQUEST
+  "E2 Node" --> "Near-RT RIC": RIC CONTROL FAILURE(Cause=Control timer expired)
+
+end
+
+note over "Near-RT RIC"
+clear timer
+end note
+@enduml

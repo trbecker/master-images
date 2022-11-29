@@ -1,0 +1,38 @@
+@startuml E2 CONTROL
+note over "Near-RT RIC"
+internal event
+end note
+
+note over "Near-RT RIC"
+perform action
+end note
+
+"Near-RT RIC" -> "E2 Node": RIC CONTROL REQUEST
+
+note over "Near-RT RIC"
+start timer
+end note
+
+note over "E2 Node"
+check request validity
+end note
+
+alt [. Request is accepted]
+  note over "E2 Node"
+  procedure is initiated
+  end note
+
+  alt [. Procedure execution is successful]
+  "E2 Node" -> "Near-RT RIC": RIC CONTROL ACKNOWLEDGE
+  else [. Procedure fails to execute]
+  "E2 Node" -> "Near-RT RIC": RIC CONTROL FAILURE(Cause = Failure to execute)
+  end
+else [. Request is rejected]
+  "E2 Node" --> "Near-RT RIC": RIC CONTROL FAILURE(Cause provides reason for rejection)
+end
+
+note over "Near-RT RIC"
+clear timer
+end note
+@enduml
+
