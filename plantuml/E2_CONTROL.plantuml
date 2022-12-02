@@ -1,4 +1,4 @@
-@startuml E2 CONTROL
+@startuml
 note over "Near-RT RIC"
 internal event
 end note

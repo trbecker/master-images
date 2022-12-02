@@ -1,4 +1,4 @@
-@startuml e2node
+@startuml
 package org.oran.control {
 	interface E2Interface {
 		void reset(String reason);

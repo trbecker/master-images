@@ -1,4 +1,4 @@
-@startuml E2 POLICY
+@startuml
 == Subscription ==
 "Near-RT RIC" <--> "E2 Node": RIC SUBSCRIPTION PROCEDURE(RIC Event Trigger, Action=REPORT)
 "Near-RT RIC" <-> "E2 Node": RIC SUBSCRIPTION PROCEDURE(RIC Event Trigger, Action=POLICY)
