@@ -1,7 +1,27 @@
-IMAGES_PNG := E2_INSERT.png E2_CONTROL.png E2_REPORT.png E2_POLICY.png \
-		E2Node.png E2Node.png
+IMAGES := E2_INSERT E2_CONTROL E2_REPORT E2_POLICY E2Node
 
-all: $(IMAGES_PNG)
+IMAGES_PNG := $(foreach img,$(IMAGES),$(img).png)
+IMAGES_TIKZ := $(foreach img,$(IMAGES),$(img).latex)
+IMAGES_EPS := $(foreach img,$(IMAGES),$(img).eps)
+
+.PHONY: all png eps latex clean
+
+all: $(IMAGES_PNG) $(IMAGES_TIKZ) $(IMAGES_EPS)
+
+png: $(IMAGES_PNG)
+
+latex: $(IMAGES_LATEX)
+
+eps: $(IMAGES_EPS)
 
 %.png: %.plantuml
-	plantuml $<
+	plantuml -tpng $<
+
+%.latex: %.plantuml
+	plantuml -tlatex $<
+
+%.eps: %.plantuml
+	plantuml -teps $<
+
+clean:
+	/bin/rm $(IMAGES_PNG) $(IMAGES_TIKZ) $(IMAGES_EPS) *.cmapx
