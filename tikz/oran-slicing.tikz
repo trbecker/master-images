@@ -1,0 +1,46 @@
+\documentclass[crop,tikz]{standalone}
+\usetikzlibrary{positioning,decorations.pathreplacing,shapes}
+\begin{document}
+
+\tikzstyle{solidrect}=[rounded corners]
+\tikzstyle{slice}=[rectangle split, rectangle split parts=3, align=left]
+
+\begin{tikzpicture}
+	\draw [solidrect, fill=red!10] (0, 0) rectangle(23, -2);%slice1
+	\draw [solidrect, fill=blue!10]  (0, -2.2) rectangle(23, -4.2);%slice2
+	\draw [solidrect, fill=yellow!10] (3, 0.1) rectangle(6, -4.3);%ric
+	\draw [solidrect, fill=yellow!10] (7, 0.1) rectangle(10, -4.3);%o-cu-cp
+	\draw [solidrect, fill=orange!10] (11, 0.1) rectangle(14, -2.1);%o-cu-up-1
+	\draw [solidrect, fill=green!10] (11, -2.1) rectangle(14, -4.3);%o-cu-up-2
+	\draw [solidrect, fill=yellow!10] (15, 0.1) rectangle(18, -4.3);%o-du
+	\draw [solidrect, fill=yellow!10] (19, 0.1) rectangle(22, -4.3);%o-ru
+
+	\draw [solidrect, dashed] (-0.3, 0.4) rectangle (6.3, -4.6);
+	\draw [solidrect, dashed] (6.7, 0.4) rectangle (18.3, -4.6);
+	\draw [solidrect, dashed] (18.7, 0.4) rectangle (22.3, -4.6);
+
+	\node at (1.5,-1) [slice] { 
+		\textbf{Network slice}
+		\nodepart{second} Subnet \#1
+		\nodepart{third} N-SSAI = 1
+	};
+
+	\node at (1.5,-3.2) [slice] { 
+		\textbf{Network slice}
+		\nodepart{second} Subnet \#2
+		\nodepart{third} N-SSAI = 2
+	};
+	
+	\node at (4.5,-2.1) { Near-RT RIC };
+	\node at (8.5,-2.1) { O-CU-CP };
+	\node at (12.5,-1) { O-CU-UP };
+	\node at (12.5,-3.2) { O-CU-UP };
+	\node at (16.5,-2.1) { O-DU };
+	\node at (20.5,-2.1) { O-RU };
+
+	\node at (3,-5) { Regional cloud };
+	\node at (12.5, -5) { Edge cloud };
+	\node at (20.5, -5) { Cell site };
+
+\end{tikzpicture}
+\end{document}
