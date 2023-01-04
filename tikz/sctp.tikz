@@ -1,0 +1,30 @@
+\tikzstyle{message}=[-latex,thick]
+\tikzstyle{message_r}=[latex-,thick]
+\begin{tikzpicture}
+	\node (a) at (0,0) { \texttt{A} };
+	\node (b) at (10, 0) { \texttt{B} };
+
+	\draw[thick,|-] (a) -- (0,-3.6);
+	\draw[thick,|-] (b) -- (10,-3.6);
+
+	\draw[thick,dotted] (0,-3.6) -- (0,-4.1);
+	\draw[thick,dotted] (10,-3.6) -- (10,-4.1);
+
+	\draw[thick] (0,-4.1) -- (0,-6.6);
+	\draw[thick] (10,-4.1) -- (10,-6.6);
+
+	\draw[message] (0,-1) -- (10,-1) node [above,midway] { \texttt{INIT} } node [right] { \texttt{(1)} };
+	\draw[message_r] (0,-1.5) -- (10,-1.5) node [above,midway] { \texttt{INIT-ACK} } node [right] { \texttt{(2)} };
+	\draw[message] (0,-2.5) -- (10,-2.5) node [above,midway] { \texttt{COOKIE-ECHO} } node [right] { \texttt{(3)} };
+	\draw[message_r] (0,-3) -- (10,-3) node [above,midway] { \texttt{COOKIE-ACK} } node [right] { \texttt{(4)} };
+
+	\draw[thick, dotted, rounded corners, blue!80] (-.5,-.5) rectangle(11,-3.5);
+	\node [blue!80] at (5,-.3) { \texttt{association startup} };
+
+	\draw[message] (0,-5) -- (10,-5) node [above,midway] { \texttt{SHUTDOWN} } node [right] { \texttt{(5)} };
+	\draw[message_r] (0,-5.5) -- (10,-5.5) node [above,midway] { \texttt{SHUTDOWN-ACK} } node [right] { \texttt{(6)} };
+	\draw[message] (0,-6) -- (10,-6) node [above,midway] { \texttt{SHUTDOWN-COMPLETE} } node [right] { \texttt{(7)} };
+
+	\draw[thick, dotted, rounded corners, blue!80] (-.5,-4.5) rectangle(11,-6.5);
+	\node [blue!80] at (5,-4.3) { \texttt{association shutdown} };
+\end{tikzpicture}

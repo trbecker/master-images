@@ -1,0 +1,14 @@
+\begin{tikzpicture}[-Latex]
+	\node (monitoring) at (0,0) { \texttt{Monitoring} };
+	\node (analysis) at (3,-1.5) { \texttt{Analysis} };
+	\node (decision) at (1.5,-3) { \texttt{Decision} };
+	\node (execution) at (-1.5,-3) { \texttt{Execution} };
+	\node (evaluation) at (-3,-1.5) { \texttt{Evaluation} };
+
+	\path
+		(monitoring) edge[bend left] (analysis)
+		(analysis) edge[bend left] (decision)
+		(decision) edge[bend left] (execution)
+		(execution) edge[bend left] (evaluation)
+		(evaluation) edge[bend left] (monitoring);
+\end{tikzpicture}

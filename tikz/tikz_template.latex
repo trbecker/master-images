@@ -1,0 +1,6 @@
+\documentclass[crop,tikz]{standalone}
+\usetikzlibrary{positioning,shapes,arrows.meta}
+
+\begin{document}
+\input{\inputfile}
+\end{document}

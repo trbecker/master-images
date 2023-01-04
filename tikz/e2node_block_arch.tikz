@@ -1,0 +1,86 @@
+\tikzstyle{e2node}=[fill=green!20,rounded corners]
+\tikzstyle{e2sm}=[fill=red!20,rounded corners]
+\tikzstyle{simulator}=[fill=yellow!20,rounded corners]
+
+\begin{tikzpicture}
+	% Legend
+%	\draw [simulator] (0,-2) rectangle(4.8,-3.8);
+%	\node at (2.4,-2.9) { \texttt{\Large{Simulator}} };
+
+%	\draw [e2sm] (5,-2) rectangle(9.8,-3.8);
+%	\node at (7.4,-2.9) { \texttt{\Large{Service Model}}};
+
+%	\draw [e2node] (10,-2) rectangle(14.8,-3.8);
+%	\node at (12.4,-2.9) { \texttt{\Large{e2node}} };
+
+	\draw [simulator] (0,0) rectangle(21.8,1.8);
+	\node at (10.9,.9) { \texttt{\Large{ConfigurationManager}} };
+	
+	\draw [e2node] (0,2) rectangle(2.8,5.8);
+	\node at (1.4,3.9) { \texttt{\Large{E2AP}} };
+
+	\draw [e2sm] (3,2) rectangle(5.8,3.8);
+	\node at (4.4,2.9) { \texttt{\Large{SM ASN.1}} };
+
+	\draw [e2sm] (6,2) rectangle(9.8,3.8);
+	\node at (7.9,2.9) { \texttt{\Large{SMValues}} };
+
+	\draw [e2sm] (10,2) rectangle(14.8,3.8);
+	\node at (12.4,2.9) { \texttt{\Large{SMRules}} };
+	
+	\draw [e2node] (15,2) rectangle(17.8,5.8);
+	\node at (16.4,3.9) { \texttt{\Large{Events}} };
+
+	\draw [e2node] (18,2) rectangle(21.8,5.8);
+	\node at (19.9,3.9) { \texttt{\Large{Connection}} };
+
+	\draw [e2sm] (3,4) rectangle(14.8,5.8);
+	\node at (8.9,4.9) { \texttt{\Large{ E2SM }} };
+
+	\draw [e2node] (0,6) rectangle(9.8,7.8);
+	\node at (4.9,6.9) { \texttt{\Large{ ASN.1 Codec }} };
+
+	\draw [e2node] (10,6) rectangle(21.8,7.8);
+	\node at (15.9,6.9) { \texttt{\Large{Control}} };
+
+	\draw [e2node] (0,8) rectangle(21.8,9.8);
+	\node at (10.9,8.9) { \texttt{\Large{ApplicationLoop}} };
+
+	\draw [rounded corners,dashed] (2.9,1.9) rectangle(14.9,5.9);
+	\node (abstract) at (3.5,2) {};
+
+
+	\draw [rounded corners,dashed] (3.9,-.9) rectangle(15.9,-4.9);
+	\node (simulator) at (4,-2.9) {};
+
+	\draw [simulator] (4,-1) rectangle(15.8,-2.8);
+	\node at (9.9,-1.9) { \texttt{\Large{KPM}} };
+
+	\draw [simulator] (4,-3) rectangle(6.8,-4.8);
+	\node at (5.4,-3.9) { \texttt{\Large{ASN1KPM}} };
+
+	\draw [simulator] (7,-3) rectangle(10.8,-4.8);
+	\node at (8.9,-3.9) { \texttt{\Large{ValueFaker}} };
+
+	\draw [simulator] (11,-3) rectangle(15.8,-4.8);
+	\node at (13.4,-3.9) { \texttt{\Large{KPMRules}} };
+
+	\path[-{Latex[length=10]},red] (abstract) edge [out=270, in=180] (simulator);
+
+%	\node (a) at (7.4,-4.7) {};
+%	\node (b) at (9.4,-5.5) { \texttt{Value Fault Injection} };
+%	\path[blue] (a) edge [out=270, in=180] (b);
+%
+%	\node (c) at (4.4,-4.7) {};
+%	\node (d) at (8.4,-6.5) { \texttt{Malformed Packet Fault Injection}};
+%	\path[blue] (c) edge [out=270, in=180] (d);
+%
+%	\node (e) at (1,2.1) {};
+%	\path[blue] (e) edge [out=270, in=180] (d);
+%
+%	\node (f) at (19,2.1) {};
+%	\node (g) at (14,-.5) {\texttt{Network Fault Injection}};
+%	\path[blue] (f) edge[out=270,in=0] (g);
+%
+%	\path[blue] (f) edge[out=270,in=0] (d);
+\end{tikzpicture}
