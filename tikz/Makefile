@@ -2,7 +2,7 @@
 
 all: pdf eps png
 
-IMAGES:=anr_procedure c-son-meta-algo e2node_block_arch oran_arch oran-slicing sctp
+IMAGES:=anr_procedure c-son-meta-algo e2node_block_arch oran_arch oran-slicing sctp son_framework
 IMG_PDF := $(foreach img,$(IMAGES),$(img).pdf)
 IMG_EPS := $(foreach img,$(IMAGES),$(img).eps)
 IMG_PNG := $(foreach img,$(IMAGES),$(img).png)
