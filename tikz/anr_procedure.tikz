@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+	\newdimen\R
+	\R=3cm
+
+	\draw (30:\R) \foreach \x in {90,150,...,390} { -- (\x:\R) };
+	\draw [dotted,gray!50] circle (3.5cm);
+	\node (tower_1) at (0,0) {\includegraphics{images/radio-tower.eps}};
+	\begin{scope}[xshift=5.2cm]
+		\draw (30:\R) \foreach \x in {90,150,...,390} { -- (\x:\R) };
+		\draw [dotted,gray!50] circle (3.5cm);
+		\node (tower_2) at (0,0) {\includegraphics{images/radio-tower.eps}};
+	\end{scope}
+	
+	\node (ue) at (2cm,-1) [fill=white] {\includegraphics{images/cellphone.eps}};	
+
+	\draw[-Latex] (tower_2) -- (ue) node [midway,below,sloped]
+		{\tiny{1. Measure the signal}};
+	\draw[-Latex] (ue) -- (tower_1) node [midway,below,sloped]
+		{\tiny{2. RRC Measurement Report}};
+	\draw[-Latex] (tower_1) -- (ue) node [midway,below,sloped]
+		{\tiny{3. Instruct to report Global CID}};
+	\draw[-Latex] (tower_2) -- (ue) node [midway,below,sloped]
+		{\tiny{4. Read global CID}};
+	\draw[-Latex] (ue) -- (tower_1) node [midway,below,sloped]
+		{\tiny{5. Report Global CID}};
+	\draw[-Latex] (tower_1) -- (tower_1) node [midway,below]
+		{\tiny{6. Update neighboring cell list}};
+	\draw[-Latex] (tower_1) -- (ue) node [midway,below,sloped]
+		{\tiny{7. IP lookup of neightboring cells}};
+	\draw[dashed] (tower_1) -- (tower_2) node [midway,below,sloped]
+		{\tiny{8. Establish X2 interface.}};
+
+
+\end{tikzpicture}

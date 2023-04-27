@@ -1,0 +1,58 @@
+@startuml
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+skinparam defaultFontSize 12
+Autonumber
+@startuml
+skin rose
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+skinparam lifelineStrategy solid
+box "Service Management & \nOrchestration Framework" #gold
+participant "SMO" as smo
+Participant "Non-RT RIC" as nonrt
+end box
+box "O-RAN Components" #lightpink
+participant “Near-RT RIC” as ric
+collections “E2 Nodes” as e2node
+endbox
+note over smo #white: Operator configures \nSON Function deployment\nand SON initial Parameters
+hnote over smo, e2node #white: Self Optimization SON Functions (MRO/ MLB/ CCO/ RO) is configured in Non-RT RIC/ Near-RT RIC or E2 Node \n via SON Inventory and Deployment Management procedure as in Figure 3.19.3-1
+alt Deployment Option 1
+'group Self Optimization SON Functions in Non-RT RIC Loop
+loop While Self Optimization in Non-RT RIC is active
+smo->e2node: 1a. <<O1>> Data collection request for Self Optimization SON functions
+e2node->smo: 1b. <<O1>> Data collection for Self Optimization SON functions
+smo->nonrt: 1c. Data retrieval
+nonrt->nonrt: 2a. AI/ML Model training and inference
+nonrt->smo: 2b. Request for Reconfiguraton of \n Self Optimization SON Parameters
+smo->e2node: 2c. <<O1>> Reconfiguration of Self Optimization related SON Parameters
+opt
+nonrt->ric: 2d. <<A1>> Send A1 policies related to \n Self Optimization related SON Functions
+ric->e2node: 2e. <<E2>> Request E2 services corresponding to A1 policy
+end
+nonrt->nonrt: 2f. Performance monitoring \n and re-training
+end
+'end
+else Deployment Option 2
+'group Self Optimization SON Functions in Near-RT RIC Loop
+loop While Self Optimization in Near-RT RIC is active
+ric->e2node: 3a. <<E2>> Data collection request for Self Optimization SON functions
+e2node->ric: 3b. <<E2>> Data collection for Self Optimization SON functions
+ric->ric: 4a. AI/ML Model training and inference
+ric->e2node: 4b. <<E2>> Reconfiguration of Self Optimization related SON Parameters
+opt
+ric->e2node: 4c. <<E2>> Request Initiation of RRM Actions like HO, Cell Reselection etc
+end
+ric->ric: 4d. Performance monitoring \n and re-training
+end
+'end
+else Deployment Option 3
+'group Self Optimization SON Functions in E2 Node Loop
+loop While Self Optimization in E2 Node is active
+hnote over smo, e2node #white: 5. Receive required inputs for executing Self Optimization SON Functions from SMO/ Non-RT RIC/ Near-RT RIC
+e2node->e2node: 6a. Reconfiguration of Parameters related \nto Self Optimization SON Functions
+e2node->e2node: 6b. Initiate RRM Actions like \nHO, Cell Reselection etc
+end
+end
+@enduml

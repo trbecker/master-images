@@ -1,0 +1,33 @@
+\tikzstyle{oran_node1} = [draw, rectangle, rounded corners, minimum height=20pt, minimum width=100pt]
+\tikzstyle{oran_node2} = [draw, rectangle, rounded corners, minimum height=20pt, minimum width=200pt]
+
+\begin{tikzpicture}
+	\node (ocloud)    [oran_node2, fillcolor1] at (0, -1) {O-Cloud};
+	\node (RU)        [oran_node1, fillcolor2] at (0, 0)   {O-RU};
+	\node (oCUUP)     [oran_node1, fillcolor3] at (2.5, 3)   {O-CU-UP};
+	\node (oCUCP)     [oran_node1, fillcolor3] at (-2.5, 5)  {O-CU-CP};
+
+	\draw [thick] (oCUCP) -- (-2.5, 1.5) node [midway, left] {F1-c};
+	\draw [thick] (oCUUP) -- (2.5, 1.5) node [midway, right] {F1-u};
+	
+	\node (oDU)       [oran_node2, fillcolor2] at (0, 1.5)   {O-DU};
+	\node (nearric)   [oran_node1, fillcolor4] at (-4, 6)  {Near-RT RIC};
+	\node (smo)       [draw, rectangle, rounded corners, fillcolor5, minimum height=60pt, minimum width=120pt] at (-4, 8.6) {SMO};
+	\node (nonrtric)  [oran_node1, fillcolor1] at (-4, 8) {Non-RT RIC};
+
+
+	\draw [thick] (oDU) -- (RU) node [midway, right] {Open Fronthaul};
+	\draw [thick] (oCUCP) -- (oCUUP) node [midway, below] {E1};
+	\draw [thick] (nearric) -- (nonrtric) node [midway, left] {A1};
+
+	\draw [thick,color1] (smo) -- (5, 8.6) node [midway, above] {O1} -- (5, 5) -- (oCUCP);
+	\draw [thick,color1] (smo) -- (5, 8.6) -- (5, 3) -- (oCUUP);
+	\draw [thick,color1] (smo) -- (5, 8.6) -- (5, 1.5) -- (oDU);
+	\draw [thick,color1] (smo) -- (5, 8.6) -- (5, 0) -- (RU);
+
+	\draw [thick,color2] (nearric) -- (-6, 6) -- (-6, 1.5) node [midway, left] {E2} -- (oDU);
+	\draw [thick,color2] (nearric) -- (-6, 6) -- (-6, 5) -- (oCUCP);
+	\draw [thick,color2] (nearric) -- (-6, 6) -- (-6, 3) -- (oCUUP);
+
+	\draw [thick,color3] (smo) -- (-7.5, 8.6) -- (-7.5, -1) node [midway, right] {O2} -- (ocloud);
+\end{tikzpicture}

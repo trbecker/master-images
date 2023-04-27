@@ -1,0 +1,27 @@
+@startuml
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+skinparam defaultFontSize 12
+Autonumber
+@startuml
+skin rose
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+skinparam lifelineStrategy solid
+box "Service Management & \nOrchestration Framework" #gold
+participant "SMO" as smo
+Participant "Non-RT RIC" as nonrt
+end box
+box "O-RAN Components" #lightpink
+participant “Near-RT RIC” as ric
+collections “E2 Nodes” as e2node
+endbox
+alt Deployment Option 3
+'group Self Optimization SON Functions in E2 Node Loop
+loop While Self Optimization in E2 Node is active
+hnote over smo, e2node #white: 5. Receive required inputs for executing Self Optimization SON Functions from SMO/ Non-RT RIC/ Near-RT RIC
+e2node->e2node: 6a. Reconfiguration of Parameters related \nto Self Optimization SON Functions
+e2node->e2node: 6b. Initiate RRM Actions like \nHO, Cell Reselection etc
+end
+end
+@enduml

@@ -1,0 +1,120 @@
+@startuml
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+skinparam defaultFontSize 12
+Autonumber
+@startuml
+box "Personnel" #lightblue
+actor "Operator" as RP
+end box
+box "Service Management & \nOrchestration Framework" #gold
+participant SMO
+participant "Non-RT RIC" as NonRTRIC
+end box
+box "O-RAN Components" #lightpink
+collections "Near-RT RIC" as NearRTRIC
+collections "O-RAN Nodes" as ORANnodes
+end box
+autonumber
+RP -> SMO: Triggering Criteria (SON targets \n and SON Deployment Model)
+== Planning phase ==
+ref over SMO, NonRTRIC : Analyze & Decide SON targets\n and SON Deployment Model \n
+opt Operator's expectation on visibility exists
+SMO -> RP : Notify (progress, deployment model)
+end
+== Configuration / deployment phase ==
+SMO -> SMO : Inspect SON related inventory data
+opt need for inventory update identified
+loop for each entity whose inventory data needs to be updated
+alt rApp entity
+|||
+ref over NonRTRIC, SMO : Obtain information about deployed rApps\n
+else xApp entity
+SMO -> NearRTRIC : <<O1>> Read on MOI
+NearRTRIC --> SMO : <<O1>> Success
+else O-RAN Node
+SMO -> ORANnodes : <<O1>> Read on MOI
+ORANnodes --> SMO : <<O1>> Success
+end
+end
+end
+ref over SMO, NonRTRIC : Re-evaluate SON deployment model\n
+opt Deployment model needs to be revised
+ref over SMO, NonRTRIC : Revise SON deployment model\n
+opt Operator's expectation on visibility exists
+SMO -> RP : Notify (progress, deployment model)
+end
+end
+ref over SMO, NonRTRIC : Decide SON configuration\n
+opt Operator's expectation on visibility exists
+SMO -> RP : Notify (progress, SON configuration)
+end
+opt Deployment model needs new entities
+loop for each new entity
+alt rApp entity
+SMO <-> NonRTRIC : <<O1>> Deploy (rApp)
+else xApp entity
+SMO <-> NearRTRIC : <<O1>> Deploy (xApp)
+end
+end
+opt Operator's expectation on visibility exists
+SMO -> RP : Notify (progress, deployed entities)
+end
+end
+opt need for configuration update identified
+loop for each entity whose configuration needs to be updated
+alt rApp entity
+|||
+ref over NonRTRIC, SMO : Modify rApp Configuration\n
+else xApp entity
+SMO -> NearRTRIC : <<O1>> Modify MOI (attribute values)
+NearRTRIC --> SMO : <<O1>> Success
+else O-RAN Node
+SMO -> ORANnodes : <<O1>> Modify MOI (attribute values)
+ORANnodes --> SMO : <<O1>> Success
+end
+end
+end
+opt Operator's expectation on visibility exists
+SMO -> RP : Notify (progress)
+end
+== Active phase ==
+loop while SON control loop is active
+|||
+ref over SMO, NonRTRIC, NearRTRIC, ORANnodes : Collect data\n
+ref over SMO, NonRTRIC, NearRTRIC, ORANnodes : Analyze data\n
+ref over SMO, NonRTRIC, NearRTRIC, ORANnodes : Decide on necessary actions\n
+ref over SMO, NonRTRIC, NearRTRIC, ORANnodes : Act / apply changes\n
+opt Operator's expectation on visibility exists
+SMO -> RP : Notify (progress, state of SON targets)
+end
+end
+== Termination phase ==
+RP -> SMO: Triggering Criteria (SON termination)
+loop for each impacted SON entity
+alt rApp entity
+alt entity no longer needed
+|||
+ref over NonRTRIC, SMO : Terminate rApp\n
+else entity still needed
+|||
+ref over NonRTRIC, SMO : Modify rApp Configuration\n
+end
+NonRTRIC --> SMO : <<O1>> Success
+else xApp entity
+alt entity no longer needed
+SMO -> NearRTRIC : Terminate (xApp instance id)
+SMO -> NearRTRIC : Delete MOI (instance id)
+else entity still needed
+SMO -> NearRTRIC : Modify MOI (attribute values)
+end
+NearRTRIC --> SMO : <<O1>> Success
+else O-RAN Node
+SMO -> ORANnodes : <<O1>> Modify MOI (attribute values)
+ORANnodes --> SMO : <<O1>> Success
+end
+end
+opt Operator's expectation on visibility exists
+SMO -> RP : Notify (progress)
+end
+@enduml

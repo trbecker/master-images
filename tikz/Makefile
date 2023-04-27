@@ -1,16 +1,27 @@
-.PHONY: all pdf eps clean
+.PHONY: all pdf eps png clean
 
-all: pdf eps
+all: pdf eps png
 
-pdf: c-son-meta-algo.pdf e2node_block_arch.pdf oran-slicing.pdf sctp.pdf
+IMAGES:=anr_procedure c-son-meta-algo e2node_block_arch oran_arch oran-slicing sctp
+IMG_PDF := $(foreach img,$(IMAGES),$(img).pdf)
+IMG_EPS := $(foreach img,$(IMAGES),$(img).eps)
+IMG_PNG := $(foreach img,$(IMAGES),$(img).png)
 
-eps: c-son-meta-algo.eps e2node_block_arch.eps oran-slicing.eps sctp.eps
+
+pdf: $(IMG_PDF)
+eps: $(IMG_EPS)
+png: $(IMG_PNG)
+
+
 
 %.pdf: %.tikz tikz_template.latex
 	pdflatex -jobname=$(basename $<) "\def\inputfile{$<} \input{tikz_template.latex}"
 
 %.eps: %.pdf
 	pdftops -eps $<
+
+%.png: %.eps
+	convert $< $@
 
 clean:
 	rm -fr *.aux *.log *.pdf *.eps

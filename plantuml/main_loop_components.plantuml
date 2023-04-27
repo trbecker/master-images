@@ -1,0 +1,11 @@
+@startuml main_loop_components
+[message queue] - [main loop] : poll
+[timer fds] - [main loop] : poll
+[sockets] - [main loop] : poll
+[main loop] - [event handler 1] : create
+[main loop] - [event handler 2] : create
+[main loop] - [event handler 3] : create
+[message queue] ..> [event handler 1] : data
+[timer fds] ..> [event handler 2] : data
+[sockets] ..> [event handler 3] : data
+@enduml

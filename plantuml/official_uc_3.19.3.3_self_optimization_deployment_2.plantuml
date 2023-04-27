@@ -1,0 +1,29 @@
+@startuml
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+skinparam defaultFontSize 12
+Autonumber
+@startuml
+skin rose
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+skinparam lifelineStrategy solid
+box "O-RAN Components" #lightpink
+participant “Near-RT RIC” as ric
+collections “E2 Nodes” as e2node
+endbox
+alt Deployment Option 2
+'group Self Optimization SON Functions in Near-RT RIC Loop
+loop While Self Optimization in Near-RT RIC is active
+ric->e2node: 3a. <<E2>> Data collection request for Self Optimization SON functions
+e2node->ric: 3b. <<E2>> Data collection for Self Optimization SON functions 
+ric->ric: 4a. AI/ML Model training and inference
+ric->e2node: 4b. <<E2>> Reconfiguration of Self Optimization related SON Parameters
+opt
+ric->e2node: 4c. <<E2>> Request Initiation of RRM Actions like HO, Cell Reselection etc
+end
+ric->ric: 4d. Performance monitoring \n and re-training
+end
+'end
+end
+@enduml
