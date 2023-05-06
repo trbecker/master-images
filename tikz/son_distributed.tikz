@@ -1,0 +1,39 @@
+\tikzset{
+    partial ellipse/.style args={#1:#2:#3}{
+        insert path={+ (#1:#3) arc (#1:#2:#3)}
+    }
+}
+
+\begin{tikzpicture}
+	\node (mano) [draw, ellipse, align=center] at (0,0) {
+		3GPP \\ management system \\
+		\scalebox{.5}{%
+		\begin{tikzpicture}
+			\node (management) [draw, rectangle, rounded corners, align=center] at (0,0) {D-SON \\ management};
+			\node (evaluation) [draw, rectangle, rounded corners, align=center] at (0,-1.5) {D-SON \\ evaluation};
+			\draw [Latex-Latex, thick] (management) -- (evaluation);
+		\end{tikzpicture}%
+		}
+	 };
+	\node (core) [draw, ellipse, align=center] at (-3, -3) {
+		NF (Core) \\
+		\scalebox{.5}{%
+		\begin{tikzpicture}
+			\node [align=center] at (0,0) {SON \\ algorithm};
+			\draw[thick, solid, red, -latex] (0,0) [partial ellipse=105:435:1.2cm and 0.7cm];
+		\end{tikzpicture}%
+		}
+	};
+	\node (ran)  [draw, ellipse, align=center] at ( 3, -3) {
+		NF (RAN) \\
+		\scalebox{.5}{%
+		\begin{tikzpicture}
+			\node [align=center] at (0,0) {SON \\ algorithm};
+			\draw[thick, solid, red, -latex] (0,0) [partial ellipse=105:435:1.2cm and 0.7cm];
+		\end{tikzpicture}%
+		}
+	};
+
+	\draw [line width=1pt, double distance=3pt, {Latex[width=10pt, length=10pt, open]}-{Latex[width=10pt, length=10pt, open]}] (mano) -- (core);
+	\draw [line width=1pt, double distance=3pt, {Latex[width=10pt, length=10pt, open]}-{Latex[width=10pt, length=10pt, open]}] (mano) -- (ran);
+\end{tikzpicture}

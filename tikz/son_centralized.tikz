@@ -1,0 +1,28 @@
+\begin{tikzpicture}
+	\node (mano) [draw, ellipse, align=center] at (0,0) {
+		3GPP \\ management system \\
+		\scalebox{.3}{
+		\begin{tikzpicture}[-Latex]
+			\node (monitoring) [draw, rectangle, rounded corners] at (0,0) { \texttt{Monitoring} };
+			\node (analysis) [draw, rectangle, rounded corners] at (3,-1.5) { \texttt{Analysis} };
+			\node (decision) [draw, rectangle, rounded corners] at (1.5,-3) { \texttt{Decision} };
+			\node (execution) [draw, rectangle, rounded corners] at (-1.5,-3) { \texttt{Execution} };
+			\node (evaluation) [draw, rectangle, rounded corners] at (-3,-1.5) { \texttt{Evaluation} };
+
+			\path
+				(monitoring) edge[bend left] (analysis)
+				(analysis) edge[bend left] (decision)
+				(decision) edge[bend left] (execution)
+				(execution) edge[bend left] (evaluation)
+				(evaluation) edge[bend left] (monitoring);
+
+			\path (analysis) edge[bend left] (monitoring);
+		\end{tikzpicture}%
+		}
+	 };
+	\node (core) [draw, ellipse, align=center] at (-3, -2.6) { Network Function \\ (Core) };
+	\node (ran) [draw, ellipse, align=center] at ( 3, -2.6) { Network Function \\ (RAN) };
+
+	\draw [line width=1pt, double distance=3pt, {Latex[width=10pt, length=10pt, open]}-{Latex[width=10pt, length=10pt, open]}] (mano) -- (core);
+	\draw [line width=1pt, double distance=3pt, {Latex[width=10pt, length=10pt, open]}-{Latex[width=10pt, length=10pt, open]}] (mano) -- (ran);
+\end{tikzpicture}

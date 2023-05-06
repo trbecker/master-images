@@ -1,0 +1,27 @@
+@startuml
+participant MDAS
+control SMO
+control RIC
+entity E2Node
+entity RU
+entity UE
+
+group Simulataneous
+RIC <-> MDAS: obtain telemetry metrics
+RIC <-> E2Node: obtain KPIs
+end group
+RIC -> RIC: decides if a change is necessary
+alt Handover parameters need to change
+RIC -> E2Node: communicates handover parameter changes
+E2Node -> UE: communicates handover parameter changes
+else Network needs restructuring
+RIC -> SMO: communicates necessary changes
+alt
+SMO -> SMO: creates a new node/VNF
+else
+SMO -> E2Node: changes configuration, e.g. network topology
+else
+SMO -> RU: changes configuration, e.g. network topology
+end alt
+end alt
+@enduml

@@ -1,9 +1,9 @@
 \begin{tikzpicture}[-Latex]
-	\node (monitoring) at (0,0) { \texttt{Monitoring} };
-	\node (analysis) at (3,-1.5) { \texttt{Analysis} };
-	\node (decision) at (1.5,-3) { \texttt{Decision} };
-	\node (execution) at (-1.5,-3) { \texttt{Execution} };
-	\node (evaluation) at (-3,-1.5) { \texttt{Evaluation} };
+	\node (monitoring) [draw, rectangle, rounded corners] at (0,0) { \texttt{Monitoring} };
+	\node (analysis) [draw, rectangle, rounded corners] at (3,-1.5) { \texttt{Analysis} };
+	\node (decision) [draw, rectangle, rounded corners] at (1.5,-3) { \texttt{Decision} };
+	\node (execution) [draw, rectangle, rounded corners] at (-1.5,-3) { \texttt{Execution} };
+	\node (evaluation) [draw, rectangle, rounded corners] at (-3,-1.5) { \texttt{Evaluation} };
 
 	\path
 		(monitoring) edge[bend left] (analysis)
@@ -11,4 +11,6 @@
 		(decision) edge[bend left] (execution)
 		(execution) edge[bend left] (evaluation)
 		(evaluation) edge[bend left] (monitoring);
+
+	\path (analysis) edge[bend left] (monitoring);
 \end{tikzpicture}
