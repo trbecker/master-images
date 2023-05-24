@@ -13,22 +13,25 @@
 	
 	\node (ue) at (2cm,-1) [fill=white] {\includegraphics{images/cellphone.eps}};	
 
-	\draw[-Latex] (tower_2) -- (ue) node [midway,below,sloped]
-		{\tiny{1. Measure the signal}};
-	\draw[-Latex] (ue) -- (tower_1) node [midway,below,sloped]
-		{\tiny{2. RRC Measurement Report}};
-	\draw[-Latex] (tower_1) -- (ue) node [midway,below,sloped]
-		{\tiny{3. Instruct to report Global CID}};
-	\draw[-Latex] (tower_2) -- (ue) node [midway,below,sloped]
-		{\tiny{4. Read global CID}};
-	\draw[-Latex] (ue) -- (tower_1) node [midway,below,sloped]
-		{\tiny{5. Report Global CID}};
-	\draw[-Latex] (tower_1) -- (tower_1) node [midway,below]
-		{\tiny{6. Update neighboring cell list}};
-	\draw[-Latex] (tower_1) -- (ue) node [midway,below,sloped]
-		{\tiny{7. IP lookup of neightboring cells}};
-	\draw[dashed] (tower_1) -- (tower_2) node [midway,below,sloped]
-		{\tiny{8. Establish X2 interface.}};
+%	\path
+%		(tower_2) edge[-Latex,bend left] node [below] {\tiny{1. Measure the signal}} (ue)
+%		(ue) edge[-Latex,bend left] node [below] {\tiny{2. RRC Measure Report}} (tower_1)
+%		(tower_1) edge[-Latex] node [below] {\tiny{3. Instruct to report Global CID}} (ue);
 
-
+%	\draw[-Latex] (tower_2) -- (ue) node [midway,below,sloped]
+%		{\tiny{1. Measure the signal}};
+%	\draw[-Latex] (ue) -- (tower_1) node [midway,below,sloped]
+%		{\tiny{2. RRC Measurement Report}};
+%	\draw[-Latex] (tower_1) -- (ue) node [midway,below,sloped]
+%		{\tiny{3. Instruct to report Global CID}};
+%	\draw[-Latex] (tower_2) -- (ue) node [midway,below,sloped]
+%		{\tiny{4. Read global CID}};
+%	\draw[-Latex] (ue) -- (tower_1) node [midway,below,sloped]
+%		{\tiny{5. Report Global CID}};
+%	\draw[-Latex] (tower_1) -- (tower_1) node [midway,below]
+%		{\tiny{6. Update neighboring cell list}};
+%	\draw[-Latex] (tower_1) -- (ue) node [midway,below,sloped]
+%		{\tiny{7. IP lookup of neightboring cells}};
+%	\draw[dashed] (tower_1) -- (tower_2) node [midway,below,sloped]
+%		{\tiny{8. Establish X2 interface.}};
 \end{tikzpicture}

@@ -1,0 +1,15 @@
+@startuml
+entity "Tower 1"
+entity UE
+entity "Tower 2"
+
+
+"Tower 2" <-> UE: Meassure the signal
+UE -> "Tower 1": RRC Measurement Report
+"Tower 1" -> UE: Instruct to report Global CID
+UE <-> "Tower 2": Read Global CID
+UE -> "Tower 1": Report Global CID
+"Tower 1" -> "Tower 1": Update neighboring cell list
+"Tower 1" <-> UE: IP lookup of neighboring cell
+"Tower 1" <-> "Tower 2": Extablish X2 interface
+@enduml

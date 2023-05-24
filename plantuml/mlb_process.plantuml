@@ -1,0 +1,16 @@
+@startuml
+group Request/Response
+NB -> "NB Neighbor": X2AP: Resource Status Request
+"NB Neighbor" -> NB: X2AP: Resource Status Response
+end group
+
+group Periodic update
+"NB Neighbor" -> NB: X2AP: Resource Status Update
+end group
+
+note over NB, "NB Neighbor"
+Resource block usage
+S1 load
+hardware load
+end note
+@enduml

@@ -3,7 +3,8 @@
 all: pdf eps png
 
 IMAGES:=anr_procedure c-son-meta-algo e2node_block_arch oran_arch oran-slicing sctp son_framework \
-	son_centralized son_distributed son_hybrid
+	son_centralized son_distributed son_hybrid 
+#ue_a3_event_equation
 
 IMG_PDF := $(foreach img,$(IMAGES),$(img).pdf)
 IMG_EPS := $(foreach img,$(IMAGES),$(img).eps)
