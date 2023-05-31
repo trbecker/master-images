@@ -1,0 +1,106 @@
+@startuml
+!pragma teoz true
+box MDAS #LightGreen
+participant Prometheus       as prometheus
+participant "Alert Manager"  as alertman
+end box
+
+box Service Management and Orchestration #LightBlue
+box Non-RT RIC
+participant "RAN Load Balancing" as rlbrapp          <<rApp>> #LightYellow
+end box
+participant "Orchestration"  as smo
+participant "RAN Database" as randb
+end box
+
+box Near-RT RIC #Orange
+participant "NodeB Load Balancing" as nlbxapp <<xApp>> #LightYellow
+participant "Mobility Load Balancing" as mlbxapp <<xApp>> #LightYellow
+end box
+
+box O-RAN gNodeB #Pink
+participant "o-CU"           as ocu
+collections "o-DU"           as odu
+collections "o-RU"           as oru
+end box
+collections "O-RAN NodeB"    as oxnb
+collections "User Equipment" as ue
+
+group telemetry loop
+group parallel
+prometheus <-> ocu: telemetry data
+prometheus <-> odu: telemetry data
+prometheus <-> oru: telemetry data
+end group
+
+prometheus -> prometheus: store and evaluate the data
+end group
+
+group Handover Signaling
+alt signaling from User Equipment (intra-NodeB mobility)
+ue -> ue: A3 thershold
+ue -> oru: A3 event
+oru -> odu: A3 event
+odu -> ocu: A3 event
+ocu -> mlbxapp: (E2) handover event
+
+alt Moving to another NodeB
+mlbxapp -> ocu: handover to another nodeB
+ocu -> oxnb: (X2) handover event
+end alt
+
+mlbxapp -> nlbxapp: (E2) handover event
+else signaling from another nodeB (inter-NodeB mobility)
+oxnb -> ocu: (X2) handowver event
+ocu -> mlbxapp: (E2) handover event
+mlbxapp -> nlbxapp: (E2) handover event
+
+else Promethues Alert Manager Signaling (monitoring signaling)
+
+prometheus -> alertman: signals the alert threshold
+alertman -> nlbxapp: (HTTP) threshold signaling
+
+end alt
+end group
+
+alt no changes
+?o-> nlbxapp: signal
+activate nlbxapp
+nlbxapp -> nlbxapp: evaluate chages
+destroy nlbxapp
+
+else parameter changes
+?o-> nlbxapp: signal
+activate nlbxapp
+nlbxapp -> nlbxapp: evaluate changes
+
+group any
+nlbxapp -> ocu: (E2) modify parameters
+nlbxapp -> odu: (E2) modify parameters
+nlbxapp -> rlbrapp: (O1/A1) signal parameter changes
+end group
+
+deactivate nlbxapp
+
+else structural changes
+?o-> nlbxapp: signal
+activate nlbxapp
+nlbxapp -> nlbxapp: evaluate changes
+nlbxapp -> rlbrapp: signal structural change needed
+deactivate nlbxapp
+
+activate rlbrapp
+rlbrapp <-> prometheus: gather telemetry data
+rlbrapp <-> randb: gether RAN data
+rlbrapp -> rlbrapp: evaluate and plan changes
+rlbrapp -> smo: request the changes
+activate smo
+smo -> smo: execute the changes
+smo -> rlbrapp: communicate changes made
+deactivate smo
+
+deactivate rlbrapp
+
+end alt
+
+@enduml
