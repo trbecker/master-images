@@ -9,9 +9,9 @@
 				      ({-(\rmrlenght / 2 - .7em - \blockonewidth)},-9.5em) --
 				      ({-(\rmrlenght / 2 - .7em - \blockonewidth)},-1.0em) -- cycle;
 
-	\node[dotted,fillcolor4,rmr,text width={\rmrlenght + 1.7em},minimum height=3em] (smo) at (0,\smoheight) {};
+	\node[dotted,smo,rmr,text width={\rmrlenght + 1.7em},minimum height=3em] (smo) at (0,\smoheight) {};
 	\node at (\innerposr{1},\smoheight) {SMO};
-	\node[draw,dotted,fillcolor5] (nonrtric) at (\innerposl{1},\smoheight) {Non-RT RIC};
+	\node[draw,dotted,non_rt_ric] (nonrtric) at (\innerposl{1},\smoheight) {Non-RT RIC};
 
 	\node[near_rt_ric_sysapp,rmr]    (rmr)   at (0,0)       {RIC Messaging Router (RMR)};
 	\node[near_rt_ric_sysapp,app] (rmgr)  at (\blockposl{1},3em) {Routing Manager};
