@@ -1,7 +1,7 @@
 .PHONY: all eps png clean
 
 TIKZ_FILES := nearrt-ric architecture 5g_nr_sa_registration_flow_overview \
-	      system_view 3gpp_interfaces
+	      system_view 3gpp_interfaces ran
 
 FILES := anr registration \
 	 $(TIKZ_FILES)
@@ -38,6 +38,15 @@ nearrt-ric.eps: nearrt-ric.pdf
 	pdftops -eps $<
 
 nearrt-ric.png: nearrt-ric.eps
+	convert $< $@
+
+ran.pdf: ran.tikz tikz_template.latex tikz_style.tex
+	pdflatex -jobname=$(basename $<) "\def\inputfile{$<} \input{tikz_template.latex}"
+
+ran.eps: ran.pdf
+	pdftops -eps $<
+
+ran.png: ran.eps
 	convert $< $@
 
 architecture.pdf: architecture.tikz tikz_template.latex tikz_style.tex

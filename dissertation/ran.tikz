@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+	\node[draw,core] (core) at (5em,2em) {Core Network};
+	
+	\path[draw,near_rt_ric] (-9em,0em) -- (-1.5em,0em) -- (-1.5em,-6em) -- (-9em,-6em) -- cycle;
+	\node[function,near_rt_ric_sysapp] at (-5em,-2em) {Platform Functions};
+	\node[function,contribution] at (-5em, -5em) {LB xApp};
+	\node[rotate=90] at (-8.5em,-3em) {Near-RT RIC};
+
+	\node[draw,o_cu] (cu) at (5em,-1.5em) {O-CU};
+	\node[draw,o_du] (du_1) at (1em,-5.5em) {O-DU};
+	\node[draw,o_du] (du_2) at (9em,-5.5em) {O-DU}; 
+	\node[draw,o_ru] (ru_1) at (-1em,-9.5em) {O-RU};
+	\node[draw,o_ru] (ru_2) at (3em,-9.5em) {O-RU};
+	\node[draw,o_ru] (ru_3) at (7em,-9.5em) {O-RU};
+	\node[draw,o_ru] (ru_4) at (11em,-9.5em) {O-RU};
+
+	\draw[Latex-Latex] (core) -- (cu);
+	\draw[Latex-Latex] (cu) -- (du_1);
+	\draw[Latex-Latex] (cu) -- (du_2);
+	\draw[Latex-Latex] (du_1) -- (ru_1);
+	\draw[Latex-Latex] (du_1) -- (ru_2);
+	\draw[Latex-Latex] (du_2) -- (ru_3);
+	\draw[Latex-Latex] (du_2) -- (ru_4);
+\end{tikzpicture}
