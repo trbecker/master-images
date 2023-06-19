@@ -1,24 +1,44 @@
 \begin{tikzpicture}
-	\node[draw,core] (core) at (5em,2em) {Core Network};
+	\node[draw,core] (core) at (8em,4em) {Core Network};
 	
-	\path[draw,near_rt_ric] (-9em,0em) -- (-1.5em,0em) -- (-1.5em,-6em) -- (-9em,-6em) -- cycle;
-	\node[function,near_rt_ric_sysapp] at (-5em,-2em) {Platform Functions};
-	\node[function,contribution] at (-5em, -5em) {LB xApp};
-	\node[rotate=90] at (-8.5em,-3em) {Near-RT RIC};
+	\path[draw,near_rt_ric] (-10em,0em) -- (-2.5em,0em) -- (-2.5em,-6em) -- (-10em,-6em) -- cycle;
+	\node[function,near_rt_ric_sysapp] at (-6em,-2em) {Platform Functions};
+	\node[function,contribution] at (-6em, -5em) {LB xApp};
+	\node[rotate=90] at (-9.5em,-3em) {Near-RT RIC};
+	
+	\path[draw,smo] (-10.5em,5.2em) -- (-10.5em,2.8em) -- (-2em,2.8em) -- (-2em,5.2em) -- cycle;
+	\node[draw,non_rt_ric] at (-6em,4em) {Non-RT RIC};
+	\node[rotate=90] at (-10em,4em) {SMO};
 
-	\node[draw,o_cu] (cu) at (5em,-1.5em) {O-CU};
-	\node[draw,o_du] (du_1) at (1em,-5.5em) {O-DU};
-	\node[draw,o_du] (du_2) at (9em,-5.5em) {O-DU}; 
-	\node[draw,o_ru] (ru_1) at (-1em,-9.5em) {O-RU};
-	\node[draw,o_ru] (ru_2) at (3em,-9.5em) {O-RU};
-	\node[draw,o_ru] (ru_3) at (7em,-9.5em) {O-RU};
-	\node[draw,o_ru] (ru_4) at (11em,-9.5em) {O-RU};
+	\path[draw,dotted] (0em,0em) -- (0em,-11em) -- (21.5em,-11em) -- (21.5em,0em) -- cycle;
+	\node at (19.7em,-0.7em) {gNB};
 
-	\draw[Latex-Latex] (core) -- (cu);
-	\draw[Latex-Latex] (cu) -- (du_1);
-	\draw[Latex-Latex] (cu) -- (du_2);
-	\draw[Latex-Latex] (du_1) -- (ru_1);
-	\draw[Latex-Latex] (du_1) -- (ru_2);
-	\draw[Latex-Latex] (du_2) -- (ru_3);
-	\draw[Latex-Latex] (du_2) -- (ru_4);
+	\node[draw,o_cu] (cu) at (8em,-1.5em) {O-CU};
+
+	\node[text width=5em] at (19em,-3.5em) {F1-u \\ F1-c};
+
+	\node[draw,o_du] (du_1) at (4em,-5.5em) {O-DU};
+	\node[draw,o_du] (du_2) at (12em,-5.5em) {O-DU}; 
+
+	\node[text width=5em] at (19em,-7.5em) {Open FH M-plane};
+
+	\node[draw,o_ru] (ru_1) at (2em,-9.5em) {O-RU};
+	\node[draw,o_ru] (ru_2) at (6em,-9.5em) {O-RU};
+	\node[draw,o_ru] (ru_3) at (10em,-9.5em) {O-RU};
+	\node[draw,o_ru] (ru_4) at (14em,-9.5em) {O-RU};
+
+	\draw[e2] (-2.5em,-1.5em) node[xshift=1em,above] {E2} -- (cu);
+	\draw[e2] (-2.5em,-4em) node[xshift=1em,above] {E2} -- (12em,-4em) -- (du_2);
+	\draw[e2] (4em,-4em) -- (du_1);
+
+	\draw[a1] (-8em,2.8em) node[yshift=-1em,left] {A1} -- (-8em,0em);
+	\draw[o1] (-4em,2.8em) node[yshift=-1em,left] {O1} -- (-4em,0em);
+
+	\draw (core) -- (cu);
+	\draw (cu) -- (du_1);
+	\draw (cu) -- (du_2);
+	\draw (du_1) -- (ru_1);
+	\draw (du_1) -- (ru_2);
+	\draw (du_2) -- (ru_3);
+	\draw (du_2) -- (ru_4);
 \end{tikzpicture}

@@ -1,5 +1,5 @@
 \begin{tikzpicture}
-	\path[draw,fill=black!10] (-3.2em,6.5em) -- (3.2em,6.5em) -- (3.2em,0.5em) -- (-3.2em,0.5em) -- cycle;
+	\path[draw,near_rt_ric] (-3.2em,6.5em) -- (3.2em,6.5em) -- (3.2em,0.5em) -- (-3.2em,0.5em) -- cycle;
 	\node at (0,6em) {Near-RT RIC};
 	\node[function,contribution] (lb_xapp) at (0,1.5em) {LB xApp};
 	\node[function,near_rt_ric_sysapp] (rtric_sysapp) at (0,4em) {Platform functions};
