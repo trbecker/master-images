@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+	\node[rounded_centered] (ue) at (-10em,0) {UE};
+	\node[rounded_centered] (gnb) {gNB};
+	\node[rounded_centered] (5gc) at (10em,0) {5G Core};
+
+	\draw[Latex-Latex] (ue) -- (gnb) node[above,midway] {\small RRC} node[below,midway] {\tiny NR Air Interface};
+	\draw[Latex-Latex] (gnb) -- (5gc) node[above,midway] {\small NG-AP} node[below,midway] {\tiny N2 Interface};
+	\draw[Latex-Latex] (ue) edge[bend right] node[above,midway] {\small NAS} node[below,midway] {\tiny N1 Interface} (5gc);
+\end{tikzpicture}

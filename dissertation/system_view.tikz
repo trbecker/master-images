@@ -1,0 +1,48 @@
+\begin{tikzpicture}
+	\path[draw,fill=black!10] (-3.2em,6.5em) -- (3.2em,6.5em) -- (3.2em,0.5em) -- (-3.2em,0.5em) -- cycle;
+	\node at (0,6em) {Near-RT RIC};
+	\node[function,contribution] (lb_xapp) at (0,1.5em) {LB xApp};
+	\node[function,near_rt_ric_sysapp] (rtric_sysapp) at (0,4em) {Platform functions};
+
+	\path[draw,fill=black!25] (-3.2em,-2em) -- (10.2em,-2em) -- (10.2em,-5.5em) -- (-3.2em,-5.5em) -- cycle;
+	\node at (3.5em,-3em) {O-CU-CP};
+	\node[function,o_cu_function] (rrc) at (0,-4.5em) {RRC};
+	\node[function,o_cu_function] (pdcp) at (7em,-4.5em) {PDCP};
+	
+	\draw[dashed] (rrc) -- (pdcp);
+
+	\path[draw,fill=black!35] (-0.5em,-6.5em) -- (7.5em,-6.5em) -- (7.5em,-12.5em) -- (-0.5em,-12.5em) -- cycle;
+	\node[function,o_du_function,minimum height=1.5em] (rlc) at (3em,-8em) {RLC};
+	\node[function,o_du_function,minimum height=1.5em] (mac) at (3em,-9.5em) {MAC};
+	\node[function,o_du_function,minimum height=1.5em] (phy) at (3em,-11em) {PHY};
+	\node[rotate=90] at (6.5em,-9.5em) {O-DU};
+
+	\draw[dashed] (rrc) -- (rlc);
+	\draw[-Latex] (pdcp) -- (rlc);
+
+	\node[draw,o_ru] (oru1) at (0em,-15em) {O-RU \#1};
+	\node[draw,o_ru] (oru2) at (6em,-15em) {O-RU \#2};
+	\draw[Latex-Latex] (phy) -- (oru1);
+	\draw[Latex-Latex] (phy) -- (oru2);
+
+	\node[draw,ue] (ue1) at (-2em,-19em) {UE};
+	\draw[dotted] (oru1) -- (ue1);
+	\draw[dotted] (oru2) -- (ue1);
+	\node[draw,ue] (ue2) at (1em,-19em) {UE};
+	\draw[dotted] (oru1) -- (ue2);
+	\draw[dotted] (oru2) -- (ue2);
+	\node[draw,ue] (ue3) at (4em,-19em) {UE};
+	\draw[dotted] (oru1) -- (ue3);
+	\draw[dotted] (oru2) -- (ue3);
+	\node[draw,ue] (ue4) at (7em,-19em) {UE};
+	\draw[dotted] (oru1) -- (ue4);
+	\draw[dotted] (oru2) -- (ue4);
+
+	\draw[Latex-Latex] (0em,0.5em) -- (0em,-2em) node[right,midway] {E2};
+
+	\draw[Latex-Latex] (-3.2em,4em) -- (-6em,4em) -- node[right,midway] {E2} (-6em,-9.5em) -- (-0.5em,-9.5em);
+
+	\path[draw,dotted] (-4em,-1.2em) -- (-4em,-13em) -- (11em,-13em) -- (11em,-1.2em) -- cycle;
+	\node[rotate=90] at (10.5em,-11em) {O-gNB};
+\end{tikzpicture}
+

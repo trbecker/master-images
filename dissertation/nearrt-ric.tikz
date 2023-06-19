@@ -1,0 +1,60 @@
+\input{nearrt-ric.defs}
+
+\begin{tikzpicture}
+	\path[draw,dotted,fillcolor2] ({-(\rmrlenght /2 + 1em)}, 10em) -- 
+				      ({-(\rmrlenght /2 + 1em)},-10em) -- 
+				      ({ (\rmrlenght /2 + 1em)},-10em) -- 
+				      ({ (\rmrlenght /2 + 1em)}, 10em) --  cycle;
+
+	\path[draw,dotted,fillcolor3] ({-(\rmrlenght / 2 + .7em)},-1.0em) --
+				      ({-(\rmrlenght / 2 + .7em)},-9.5em) --
+				      ({-(\rmrlenght / 2 - .7em - \blockonewidth)},-9.5em) --
+				      ({-(\rmrlenght / 2 - .7em - \blockonewidth)},-1.0em) -- cycle;
+
+	\node[dotted,fillcolor4,rmr,text width={\rmrlenght + 1.7em},minimum height=3em] (smo) at (0,\smoheight) {};
+	\node at (\innerposr{1},\smoheight) {SMO};
+	\node[draw,dotted,fillcolor5] (nonrtric) at (\innerposl{1},\smoheight) {Non-RT RIC};
+
+	\node[fillcolor1,rmr]    (rmr)   at (0,0)       {RIC Messaging Router (RMR)};
+	\node[fillcolor1,block1] (rmgr)  at (\blockposl{1},3em) {Routing Manager};
+	\node[fillcolor1,block1] (submgr) at (\blockposl{0},3em) {Subscription Manager};
+	\node[fillcolor1,block1] (xapp3)  at ({0.5 * (\blockonewidth + \blockspacing) - 0.4em},3em) {};
+	\node[fillcolor1,block1] (xapp2)  at ({0.5 * (\blockonewidth + \blockspacing) - 0.2em},3.2em) {};
+	\node[fillcolor1,block1] (xapp1)  at (\blockposr{0},3.4em) {xApp \#1};
+	\node[fillcolor1,block1] (appmgr) at (\blockposr{1},3em) {Application Manager};
+	\node[fillcolor1,block1] (vespa) at (\blockposr{1},-3em) {VESPA Manager};
+	\node[fillcolor1,block1] (e2mgr)  at (\blockposr{0},-3em) {E2\\Manager};
+	\node[fillcolor1,block1] (alarmmgr) at (\blockposl{0},-3em) {Alarm Manager};
+	\node[fillcolor1,block1] (dbaas) at (\blockposl{1},-3em) {DBaaS}; 
+
+
+	\node[fillcolor1,block1] (a1m) at (\innerposl{1}, 7em) {A1\\Mediator};
+	\node[fillcolor1,block1] (o1m) at (\innerposr{1}, 7em) {O1\\Mediator};
+	\node[fillcolor1,block1] (e2t) at (\innerposl{0},-7em) {E2\\Terminator};
+	\node[database,scale=2,fill=white] (influx) at (\blockposl{1},-7em) {};
+
+	\node[draw,dotted,fillcolor3,text centered,text width={\rmrlenght},minimum height=3em] (e2node2) at (-.4,{(-\smoheight + 0.4em)}) {E2 Node};
+	\node[draw,dotted,fillcolor3,text centered,text width={\rmrlenght},minimum height=3em] (e2node3) at (-.2,{(-\smoheight + 0.2em)}) {E2 Node};
+	\node[draw,dotted,fillcolor3,text centered,text width={\rmrlenght},minimum height=3em] (e2node1) at (0,-\smoheight) {E2 Node};
+
+
+	\path[draw] (a1m) -- ($(rmr.north) + (\innerposl{1},0)$)
+		    (o1m) -- ($(rmr.north) + (\innerposr{1},0)$)
+		    (e2t) -- (rmr)
+		    (rmgr) -- ($(rmr.north) + (\blockposl{1},0)$)
+		    (submgr) -- ($(rmr.north) + (\blockposl{0},0)$)
+		    (xapp1) -- ($(rmr.north) + (\blockposr{0},0)$)
+		    (xapp2) -- ($(rmr.north) + ({0.5 * (\blockonewidth + \blockspacing) - 0.2em},0)$)
+		    (xapp3) -- ($(rmr.north) + ({0.5 * (\blockonewidth + \blockspacing) - 0.4em},0)$)
+		    (appmgr) -- ($(rmr.north) + (\blockposr{1},0)$)
+		    (vespa) -- ($(rmr.south) + (\blockposr{1},0)$)
+		    (alarmmgr) -- ($(rmr.south) + (\blockposl{0},0)$)
+		    (e2mgr) -- ($(rmr.south) + (\blockposr{0},0)$)
+		    (dbaas) -- (influx)
+		    (a1m) -- (nonrtric) node[right, midway] {A1 Interface}
+		    (o1m) -- ($(smo.south) + (\innerposr{1},0)$) node[right,midway] {O1 Interface}
+		    (e2node1) -- (e2t) node[right,midway] {E2 Interface}
+		    (e2node2) -- ($(e2t.south) + (-.4,0)$)
+		    (e2node3) -- ($(e2t.south) + (-.2,0)$);
+
+\end{tikzpicture}

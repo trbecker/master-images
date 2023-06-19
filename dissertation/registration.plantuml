@@ -1,0 +1,12 @@
+@startuml
+UE -> Network: RRCSetupRequest
+alt success
+Network -> UE: RRCSetup
+UE -> Network: RRCSetupComplete
+else connection rejected
+Network -> UE: RRCReject
+note right
+Need to look into RRCReject: (1) would the reject have a reconnect component?
+end note
+end alt
+@enduml

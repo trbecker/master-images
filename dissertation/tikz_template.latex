@@ -1,0 +1,10 @@
+\documentclass[crop,tikz]{standalone}
+\usepackage{graphicx}
+\usepackage{empheq}
+\usepackage[most]{tcolorbox}
+\usetikzlibrary{positioning,shapes,arrows.meta,tikzmark,calc}
+
+\begin{document}
+\input{tikz_style}
+\input{\inputfile}
+\end{document}

@@ -1,0 +1,26 @@
+\tikzstyle{node} = [draw,fill=white,text centered,text width=8em,minimum height=3.8em]
+\tikzstyle{path} = [-Latex,draw]
+\begin{tikzpicture}
+	\node[node] (dl_sync) {DL Sync};
+	\node[node,below=of dl_sync] (ul_sync) {UL Sync};
+	\node[node,below=of ul_sync] (srb0) {SRB0};
+	\node[node,below=of srb0] (srb1) {SRB1};
+	\node[node,below=of srb1] (reg_req) {Registration Request};
+	\node[node,below=of reg_req] (nas_proc) {NAS Procedure Identity + Auth + SMC};
+	\node[node,below=of nas_proc] (cap_xchng) {UE Cap Exchange};
+	\node[node,below=of cap_xchng] (as_smc) {AS SMC};
+	\node[node,below=of as_smc] (srb2_drb) {SRB2 DRB};
+	\node[node,below=of srb2_drb] (reg_complete) {Registration complete};
+	\node[node,below=of reg_complete] (pdu_sess) {PDU Session};
+
+	\draw[-Latex] (dl_sync) -- (ul_sync); 
+	\draw[-Latex] (ul_sync) -- (srb0); 
+	\draw[-Latex] (srb0) -- (srb1); 
+	\draw[-Latex] (srb1) -- (reg_req); 
+	\draw[-Latex] (reg_req) -- (nas_proc); 
+	\draw[-Latex] (nas_proc) -- (cap_xchng);
+	\draw[-Latex] (cap_xchng) -- (as_smc); 
+	\draw[-Latex] (as_smc) -- (srb2_drb); 
+	\draw[-Latex] (srb2_drb) -- (reg_complete); 
+	\draw[-Latex] (reg_complete) -- (pdu_sess);;
+\end{tikzpicture}
