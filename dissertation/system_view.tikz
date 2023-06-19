@@ -4,14 +4,14 @@
 	\node[function,contribution] (lb_xapp) at (0,1.5em) {LB xApp};
 	\node[function,near_rt_ric_sysapp] (rtric_sysapp) at (0,4em) {Platform functions};
 
-	\path[draw,fill=black!25] (-3.2em,-2em) -- (10.2em,-2em) -- (10.2em,-5.5em) -- (-3.2em,-5.5em) -- cycle;
+	\path[draw,o_cu] (-3.2em,-2em) -- (10.2em,-2em) -- (10.2em,-5.5em) -- (-3.2em,-5.5em) -- cycle;
 	\node at (3.5em,-3em) {O-CU-CP};
 	\node[function,o_cu_function] (rrc) at (0,-4.5em) {RRC};
 	\node[function,o_cu_function] (pdcp) at (7em,-4.5em) {PDCP};
 	
 	\draw[dashed] (rrc) -- (pdcp);
 
-	\path[draw,fill=black!35] (-0.5em,-6.5em) -- (7.5em,-6.5em) -- (7.5em,-12.5em) -- (-0.5em,-12.5em) -- cycle;
+	\path[draw,o_du] (-0.5em,-6.5em) -- (7.5em,-6.5em) -- (7.5em,-12.5em) -- (-0.5em,-12.5em) -- cycle;
 	\node[function,o_du_function,minimum height=1.5em] (rlc) at (3em,-8em) {RLC};
 	\node[function,o_du_function,minimum height=1.5em] (mac) at (3em,-9.5em) {MAC};
 	\node[function,o_du_function,minimum height=1.5em] (phy) at (3em,-11em) {PHY};
