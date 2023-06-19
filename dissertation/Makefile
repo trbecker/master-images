@@ -40,7 +40,7 @@ nearrt-ric.eps: nearrt-ric.pdf
 nearrt-ric.png: nearrt-ric.eps
 	convert $< $@
 
-architecture.pdf: architecture.tikz tikz_template.latex tikz_style.tex architecture.defs nearrt-ric.defs
+architecture.pdf: architecture.tikz tikz_template.latex tikz_style.tex
 	pdflatex -jobname=$(basename $<) "\def\inputfile{$<} \input{tikz_template.latex}"
 
 architecture.eps: architecture.pdf

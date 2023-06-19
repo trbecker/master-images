@@ -1,5 +1,3 @@
-\input{nearrt-ric.defs}
-
 \begin{tikzpicture}
 	\path[draw,dotted,near_rt_ric] ({-(\rmrlenght /2 + 1em)}, 8em) -- 
 				      ({-(\rmrlenght /2 + 1em)},-10em) -- 
