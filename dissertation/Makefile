@@ -3,7 +3,8 @@
 TIKZ_FILES := nearrt-ric architecture 5g_nr_sa_registration_flow_overview \
 	      system_view 3gpp_interfaces ran
 
-FILES := anr registration \
+FILES := anr registration traffic_steering policy_based_traffic_steering \
+	 enrichment_information_based_traffic_steering \
 	 $(TIKZ_FILES)
 
 EPS := $(foreach f,$(FILES),$f.eps)
@@ -18,6 +19,24 @@ all: eps png
 eps: $(EPS)
 
 png: $(PNG)
+
+traffic_steering.eps: traffic_steering.plantuml
+	plantuml -teps traffic_steering.plantuml
+
+traffic_steering.png: traffic_steering.plantuml
+	plantuml -tpng traffic_steering.plantuml
+
+enrichment_information_based_traffic_steering.eps: enrichment_information_based_traffic_steering.plantuml
+	plantuml -teps enrichment_information_based_traffic_steering.plantuml
+
+enrichment_information_based_traffic_steering.png: enrichment_information_based_traffic_steering.plantuml
+	plantuml -tpng enrichment_information_based_traffic_steering.plantuml
+
+policy_based_traffic_steering.eps: policy_based_traffic_steering.plantuml
+	plantuml -teps policy_based_traffic_steering.plantuml
+
+policy_based_traffic_steering.png: policy_based_traffic_steering.plantuml
+	plantuml -tpng policy_based_traffic_steering.plantuml
 
 anr.eps: anr.plantuml
 	plantuml -teps anr.plantuml

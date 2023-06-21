@@ -1,0 +1,45 @@
+@startuml
+skinparam ParticipantPadding 4
+skinparam BoxPadding 8
+skinparam defaultFontSize 12
+
+Box “Service Management and Orchestration” #gold
+    Participant OAM as “OAM Functions”
+    Participant non as “Non-RT RIC”      
+End box
+
+Box “O-RAN” #lightpink
+   Participant near as “Near-RT RIC”  
+   Participant ran as “E2 Node” 
+End box
+
+OAM <-> ran : <<O1>> RAN Data & Configuration collection
+near <-> ran : <<E2>> RAN Data & Configuration collection
+OAM -> non: TS Performance information
+non-->non: (Mode 2) Collected Data Evaluation TS target generation
+near-->near: (Mode 1) Collected Data Evaluation TS target generation
+
+group OUTER LOOP CONTROL
+   non --> near : 1:(opt.) <<A1>> A1 policy setup or update
+   non --> near: 2: (opt.) <<A1-EI>> Traffic steering related A1 Enrichment Information
+   near -> near : 3: TS optimization set-up or update
+   near -> ran : 4: <<E2>> RIC SUBSCRIPTION REQUEST(UE context & Measurement Metrics)
+
+   group INNER LOOP CONTROL
+      ran -> near: 5: <<E2>> RIC INDICATION (UE context & E2 measurement metrics)
+      near -> near: 6: TS performance does not fulfill A1 policy requirements      
+      near --> ran : 7: (opt.) <<E2>> RIC SUBSCRIPTION REQUEST(REPORT or INSERT [UE measurements & E2-node state])
+      near <-- ran : (opt.) <<E2>> RIC INDICATION
+      near --> ran : (opt.) <<E2>> RIC CONTROL REQUEST(TS optimization control parameters)
+      near --> ran : (opt.) <<E2>> (opt.) RIC SUBSCRIPTION REQUEST(TS optimization POLICY)    
+   end
+   OAM <-- near: (opt.) <<O1>> TS Performance information 
+   OAM -> non: TS Performance information
+   non <-- near: (opt.) <<A1>> TS Performance information 
+   non -> non: TS Optimization Performance Evaluation
+   near -> near: TS Optimization Performance Evaluation
+end
+non --> near: (opt.) <<A1>> A1 policy delete
+near -> near: TS optimization stopped
+near-> ran: <<E2>> RIC SUBSCRIPTION DELETE
+@enduml

@@ -1,0 +1,44 @@
+@startuml
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+Autonumber
+
+Box “Service Management and Orchestration” #gold
+	participant “Collection & Control” as smo
+	participant “Non-RT RIC” as non
+end box
+
+Box “O-RAN” #lightpink
+	participant “Near-RT RIC” as near
+	participant “E2 Nodes” as ran
+end box
+
+ran -> smo : <<O1>> Data collection
+smo -> non : Data retrieval
+
+non -> non : Performance monitoring and evaluation
+non -> non : Performance trigger for traffic steering
+
+group O1 Data collection
+	non -> smo: Request additional measurements
+	smo -> ran: <<O1>> PM measurement configuration
+	ran -> smo : <<O1>> Data collection
+	smo -> non : Data retrieval
+end
+
+non -> non : Decision of optimization action
+
+group A1 Policies
+	non -> near : <<A1>> Traffic management policy create message
+	near -> ran : <<E2>> Traffic management enforcement
+end
+
+ran -> smo : <<O1>> Data collection
+smo -> non : Data retrieval of RAN and non-RAN data
+non -> non : Performance monitoring and evaluation
+non -> non : Decision to remove policy
+group A1 Policies
+	non -> near : <<A1>> Traffic management policy delete message
+	near -> ran : <<E2>> Traffic management policy deletion
+end
+@enduml

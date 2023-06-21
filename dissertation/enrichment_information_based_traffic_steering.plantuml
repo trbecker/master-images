@@ -1,0 +1,85 @@
+@startuml
+skin rose
+skinparam ParticipantPadding 5
+skinparam BoxPadding 10
+Autonumber
+
+Box “Service Management and Orchestration” #gold
+participant “Collection & Control” as smo
+end box
+
+Box “Non-RT RIC” #yellow
+participant “Non-RT RC FW” as fw
+participant “Traffic Steering rApp” as tsrapp
+participant “UE Location rApp” as uerapp
+end box
+
+
+Box “O-RAN” #lightpink
+participant “Near-RT RIC” as near
+participant “E2 Nodes” as ran
+end box
+
+near -> fw : <<A1-EI>> request UE_Traj_Pred
+fw -> tsrapp : <<R1>> request UE_Traj_Pred
+
+
+tsrapp -> fw : <<R1>> request network data
+
+group Optional – If no other rApp is collecting
+fw -> smo : internal
+smo -> ran : Request <<O1>> data
+ran -> smo : <<O1>> data collection
+smo -> fw : internal
+end
+
+fw -> tsrapp : <<R1>> data distribution
+
+tsrapp -> tsrapp : Determine UEs\nof interest
+
+tsrapp -> fw : <<R1>> request UeLocPred (UE list)
+fw -> uerapp : <<R1>> request UeLocPred (UE list)
+
+uerapp -> fw : <<R1>> request network data
+
+group Optional – If no other rApp is collecting
+fw -> smo : internal
+smo -> ran : request <<O1>> data
+ran -> smo : <<O1>> data collection
+smo -> fw : internal
+end
+
+fw -> uerapp : <<R1>> data distribution
+
+group Repeat per UE
+uerapp -> uerapp : Predict UE location
+end
+
+group Prediction could be returned per UE or by some grouping of UE
+uerapp -> fw : <<R1>> UeLocPred (UE list) data
+fw -> tsrapp : <<R1>> data distribution
+
+tsrapp -> tsrapp : analyze results
+
+
+tsrapp -> fw : <<R1>> UE_Traj_Pred (UE list) data
+fw -> near : <<A1>> UE_Traj_Pred data
+end
+
+near -> ran : <<E2>> congestion\nmitigation
+
+near -> near : Determine congestion cleared
+near -> fw : <<A1-EI>> cease UE_Traj_Pred
+
+fw -> tsrapp : <<R1>> cease\UE_Traj_Pred
+tsrapp -> fw : <<R1>> cease\UELocPred
+fw -> uerapp : <<R1>> cease\nUELocPred
+
+uerapp -> fw : <<R1>> cease network data
+
+group Optional – If no other rApp is collecting
+fw -> smo : internal
+smo -> ran : cease <<O1>> data
+end
+
+@enduml
